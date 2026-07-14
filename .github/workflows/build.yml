@@ -27,27 +27,15 @@ jobs:
         run: |
           sudo apt update
           sudo apt install -y git zip unzip python3-pip autoconf libtool \
-            pkg-config zlib1g-dev libncurses-dev cmake libffi-dev libssl-dev \
-            build-essential ccache
-
-      - name: Android SDK kur
-        uses: android-actions/setup-android@v3
-
-      - name: Android paketlerini kur (aidl dahil)
-        run: |
-          sdkmanager "platform-tools" "build-tools;34.0.0" "platforms;android-34"
-          echo "$ANDROID_SDK_ROOT/build-tools/34.0.0" >> $GITHUB_PATH
+            libtool-bin pkg-config zlib1g-dev libncurses-dev cmake \
+            libffi-dev libssl-dev build-essential ccache m4
 
       - name: Buildozer kur
         run: |
           pip install --upgrade pip
-          pip install buildozer cython==0.29.36
+          pip install "buildozer==1.5.0" "cython==0.29.36"
 
       - name: APK derle
-        env:
-          ANDROIDSDK: ${{ env.ANDROID_SDK_ROOT }}
-          ANDROIDAPI: "34"
-          ANDROIDMINAPI: "21"
         run: buildozer -v android debug
 
       - name: APK yukle
