@@ -13,6 +13,7 @@ android.api = 34
 android.minapi = 21
 android.accept_sdk_license = True
 android.allow_backup = True
+p4a.branch = master
 
 [buildozer]
 log_level = 2
